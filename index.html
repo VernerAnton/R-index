@@ -186,15 +186,20 @@
             gap: 0.5rem;
             font-size: 0.75rem;
             letter-spacing: 0.1em;
-            opacity: 0.7;
+            z-index: 10;
         }
 
         .mode-toggle button {
             background: none;
             border: 1px solid;
-            font-size: 1rem;
+            font-size: 1.125rem;
             cursor: pointer;
-            padding: 0.35rem 0.5rem;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.2s;
             font-family: inherit;
         }
@@ -597,11 +602,11 @@
         .brutalist.dark-mode::-webkit-scrollbar-thumb:hover { background: #e0e0e055; }
     </style>
     <script>
-        // Prevent flash - apply dark mode and saved style immediately
+        // Prevent flash - apply theme immediately based on preference
         (function() {
-            const savedTheme = localStorage.getItem('rindex-theme') || 'dark';
-            const savedStyle = localStorage.getItem('rindex-style') || 'mystical';
-            const isDark = savedTheme === 'dark';
+            const savedPref = localStorage.getItem('rindex-theme') || 'system';
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = savedPref === 'dark' || (savedPref === 'system' && systemDark);
             document.documentElement.style.background = isDark ? '#0d0d0d' : '#f4f1ea';
         })();
     </script>
@@ -788,23 +793,64 @@
         let currentStyle = localStorage.getItem('rindex-style') || 'mystical';
 
         // ═══════════════════════════════════════════════════════════════════════════
-        // THEME MANAGEMENT
+        // THEME MANAGEMENT (with system preference support)
         // ═══════════════════════════════════════════════════════════════════════════
         const body = document.body;
         const themeBtn = document.getElementById('theme-btn');
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-        function applyTheme(theme) {
+        function applyTheme(preference) {
+            const isSystemDark = mediaQuery.matches;
+            let finalTheme;
+
+            if (preference === 'system') {
+                finalTheme = isSystemDark ? 'dark' : 'light';
+            } else {
+                finalTheme = preference;
+            }
+
             body.classList.remove('dark-mode', 'light-mode', 'loading');
-            body.classList.add(theme + '-mode');
-            themeBtn.innerHTML = theme === 'dark' ? '&#9788;' : '&#9790;';
+            body.classList.add(finalTheme + '-mode');
+            updateThemeButton(preference, finalTheme);
         }
 
+        function updateThemeButton(preference, actualTheme) {
+            if (preference === 'system') {
+                themeBtn.textContent = '◐';
+                themeBtn.title = `Auto (${actualTheme})`;
+            } else if (actualTheme === 'dark') {
+                themeBtn.textContent = '☀';
+                themeBtn.title = 'Switch to system';
+            } else {
+                themeBtn.textContent = '☽';
+                themeBtn.title = 'Switch to dark';
+            }
+        }
+
+        // Cycle: system -> light -> dark -> system
         function toggleTheme() {
-            const current = localStorage.getItem('rindex-theme') || 'dark';
-            const next = current === 'dark' ? 'light' : 'dark';
+            const current = localStorage.getItem('rindex-theme') || 'system';
+            let next;
+
+            if (current === 'system') {
+                next = 'light';
+            } else if (current === 'light') {
+                next = 'dark';
+            } else {
+                next = 'system';
+            }
+
             localStorage.setItem('rindex-theme', next);
             applyTheme(next);
         }
+
+        // Listen for system theme changes
+        mediaQuery.addEventListener('change', () => {
+            const pref = localStorage.getItem('rindex-theme') || 'system';
+            if (pref === 'system') {
+                applyTheme('system');
+            }
+        });
 
         // ═══════════════════════════════════════════════════════════════════════════
         // STYLE MANAGEMENT
@@ -996,18 +1042,20 @@
         // INITIALIZATION
         // ═══════════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('rindex-theme') || 'dark';
+            const savedPref = localStorage.getItem('rindex-theme') || 'system';
             const savedStyle = localStorage.getItem('rindex-style') || 'mystical';
-            applyTheme(savedTheme);
+            applyTheme(savedPref);
             applyStyle(savedStyle);
             renderStats();
             render();
         });
 
         // Apply immediately to reduce flash
-        const immediateTheme = localStorage.getItem('rindex-theme') || 'dark';
+        const immediatePref = localStorage.getItem('rindex-theme') || 'system';
         const immediateStyle = localStorage.getItem('rindex-style') || 'mystical';
-        body.classList.add(immediateTheme + '-mode');
+        const isImmediateDark = immediatePref === 'dark' ||
+            (immediatePref === 'system' && mediaQuery.matches);
+        body.classList.add(isImmediateDark ? 'dark-mode' : 'light-mode');
         body.classList.add(immediateStyle);
     </script>
 </body>
