@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R-Index | Routine Archive</title>
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           R-INDEX: The Routine Archive
+           A mystical index of artifacts, canvases, and arcane notes
+           ═══════════════════════════════════════════════════════════ */
+
+        :root {
+            --font-main: 'Courier New', Courier, monospace;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-main);
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
+            min-height: 100vh;
+        }
+
+        /* ═══ LIGHT MODE ═══ */
+        body.light-mode {
+            background: linear-gradient(to bottom, #f4f1ea 0%, #e8e4d9 50%, #ddd8c8 100%);
+            color: #2a2a2a;
+        }
+
+        /* ═══ DARK MODE (default/preferred) ═══ */
+        body.dark-mode {
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #0f0f0f 100%);
+            color: #d4c4a8;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           HEADER
+           ═══════════════════════════════════════════════════════════ */
+
+        .header {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            border-bottom: 1px solid;
+        }
+
+        .light-mode .header { border-color: #2a2a2a33; }
+        .dark-mode .header { border-color: #d4c4a833; }
+
+        .header::after {
+            content: '◆ ◇ ◆';
+            position: absolute;
+            bottom: -0.6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            letter-spacing: 0.5rem;
+            padding: 0 1rem;
+        }
+
+        .light-mode .header::after {
+            background: linear-gradient(to bottom, #f4f1ea, #e8e4d9);
+            color: #2a2a2a66;
+        }
+        .dark-mode .header::after {
+            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+            color: #d4c4a866;
+        }
+
+        .mode-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+        }
+
+        .mode-toggle button {
+            background: none;
+            border: 1px solid;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.35rem 0.5rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .light-mode .mode-toggle button {
+            border-color: #2a2a2a44;
+            color: #2a2a2a;
+        }
+        .dark-mode .mode-toggle button {
+            border-color: #d4c4a844;
+            color: #d4c4a8;
+        }
+
+        .mode-toggle button:hover {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        .title-wrapper {
+            margin-top: 0.5rem;
+        }
+
+        .title-decoration {
+            font-size: 0.625rem;
+            letter-spacing: 0.5rem;
+            opacity: 0.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .title {
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: normal;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .dark-mode .title {
+            text-shadow: 0 0 30px #d4c4a822;
+        }
+
+        .subtitle {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            opacity: 0.5;
+            margin-top: 0.75rem;
+            font-style: italic;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           SEARCH
+           ═══════════════════════════════════════════════════════════ */
+
+        .search-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            padding-left: 2.5rem;
+            font-family: var(--font-main);
+            font-size: 0.875rem;
+            border: 1px solid;
+            background: transparent;
+            transition: all var(--transition-speed);
+            letter-spacing: 0.05em;
+        }
+
+        .light-mode .search-box {
+            border-color: #2a2a2a33;
+            color: #2a2a2a;
+        }
+        .light-mode .search-box:focus {
+            border-color: #2a2a2a;
+            outline: none;
+            box-shadow: 0 0 0 1px #2a2a2a22;
+        }
+        .light-mode .search-box::placeholder {
+            color: #2a2a2a66;
+        }
+
+        .dark-mode .search-box {
+            border-color: #d4c4a833;
+            color: #d4c4a8;
+        }
+        .dark-mode .search-box:focus {
+            border-color: #d4c4a8;
+            outline: none;
+            box-shadow: 0 0 20px #d4c4a811;
+        }
+        .dark-mode .search-box::placeholder {
+            color: #d4c4a855;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.4;
+            font-size: 0.875rem;
+        }
+
+        .search-hint {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.625rem;
+            opacity: 0.3;
+            letter-spacing: 0.1em;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CATEGORY FILTERS
+           ═══════════════════════════════════════════════════════════ */
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            font-family: var(--font-main);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px solid;
+            background: transparent;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+
+        .light-mode .filter-btn {
+            border-color: #2a2a2a33;
+            color: #2a2a2a;
+        }
+        .light-mode .filter-btn:hover,
+        .light-mode .filter-btn.active {
+            background: #2a2a2a;
+            color: #f4f1ea;
+            border-color: #2a2a2a;
+        }
+
+        .dark-mode .filter-btn {
+            border-color: #d4c4a833;
+            color: #d4c4a8;
+        }
+        .dark-mode .filter-btn:hover,
+        .dark-mode .filter-btn.active {
+            background: #d4c4a8;
+            color: #0d0d0d;
+            border-color: #d4c4a8;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           SECTIONS
+           ═══════════════════════════════════════════════════════════ */
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section.hidden {
+            display: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+        }
+
+        .light-mode .section-line { background: #2a2a2a22; }
+        .dark-mode .section-line { background: #d4c4a822; }
+
+        .section-title {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.6;
+            white-space: nowrap;
+        }
+
+        .section-icon {
+            opacity: 0.4;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           LINK CARDS
+           ═══════════════════════════════════════════════════════════ */
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .link-card {
+            padding: 1.25rem;
+            border: 1px solid;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            text-align: left;
+            background: transparent;
+            font-family: inherit;
+            display: block;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            transition: all var(--transition-speed);
+        }
+
+        .light-mode .link-card {
+            border-color: #2a2a2a22;
+            color: #2a2a2a;
+        }
+        .light-mode .link-card::before { background: #2a2a2a33; }
+        .light-mode .link-card:hover {
+            border-color: #2a2a2a44;
+            transform: translateX(4px);
+        }
+        .light-mode .link-card:hover::before {
+            background: #2a2a2a;
+        }
+
+        .dark-mode .link-card {
+            border-color: #d4c4a822;
+            color: #d4c4a8;
+        }
+        .dark-mode .link-card::before { background: #d4c4a833; }
+        .dark-mode .link-card:hover {
+            border-color: #d4c4a844;
+            transform: translateX(4px);
+            box-shadow: 0 0 30px #d4c4a808;
+        }
+        .dark-mode .link-card:hover::before {
+            background: #d4c4a8;
+        }
+
+        .link-card.hidden {
+            display: none;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 0.9375rem;
+            font-weight: normal;
+            letter-spacing: 0.05em;
+            line-height: 1.3;
+        }
+
+        .card-category {
+            font-size: 0.625rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            padding: 0.2rem 0.5rem;
+            border: 1px solid;
+            flex-shrink: 0;
+            margin-left: 0.75rem;
+        }
+
+        .light-mode .card-category { border-color: #2a2a2a33; }
+        .dark-mode .card-category { border-color: #d4c4a833; }
+
+        .card-desc {
+            font-size: 0.75rem;
+            opacity: 0.5;
+            line-height: 1.5;
+            margin-top: 0.5rem;
+        }
+
+        .card-date {
+            font-size: 0.625rem;
+            opacity: 0.3;
+            margin-top: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           EMPTY STATE
+           ═══════════════════════════════════════════════════════════ */
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            opacity: 0.4;
+        }
+
+        .empty-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-text {
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════════════════════ */
+
+        .footer {
+            text-align: center;
+            margin-top: auto;
+            padding-top: 2rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            opacity: 0.3;
+        }
+
+        .footer-decoration {
+            margin-bottom: 0.5rem;
+            font-size: 0.625rem;
+            letter-spacing: 1rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           LOADING STATE
+           ═══════════════════════════════════════════════════════════ */
+
+        body.loading {
+            visibility: hidden;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           SCROLL BAR (dark mode enhancement)
+           ═══════════════════════════════════════════════════════════ */
+
+        .dark-mode::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dark-mode::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        .dark-mode::-webkit-scrollbar-thumb {
+            background: #d4c4a833;
+            border-radius: 4px;
+        }
+        .dark-mode::-webkit-scrollbar-thumb:hover {
+            background: #d4c4a855;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           STATS BAR
+           ═══════════════════════════════════════════════════════════ */
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            font-size: 0.625rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-count {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 480px) {
+            .stats {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+    <script>
+        // Prevent flash - apply dark mode immediately (preferred theme)
+        (function() {
+            const saved = localStorage.getItem('rindex-theme') || 'dark';
+            const isDark = saved === 'dark' || (saved === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.documentElement.style.background = isDark ? '#0d0d0d' : '#f4f1ea';
+        })();
+    </script>
+</head>
+<body class="loading">
+    <div class="container">
+        <!-- ═══ HEADER ═══ -->
+        <header class="header">
+            <div class="mode-toggle">
+                <button onclick="toggleTheme()" id="theme-btn" aria-label="Toggle theme"></button>
+            </div>
+            <div class="title-wrapper">
+                <div class="title-decoration">* * * * *</div>
+                <h1 class="title">R-Index</h1>
+                <p class="subtitle">The Routine Archive</p>
+            </div>
+        </header>
+
+        <!-- ═══ SEARCH ═══ -->
+        <div class="search-container">
+            <span class="search-icon">&#9906;</span>
+            <input
+                type="text"
+                class="search-box"
+                id="search"
+                placeholder="Search the archive..."
+                autocomplete="off"
+            >
+            <span class="search-hint">ESC to clear</span>
+        </div>
+
+        <!-- ═══ FILTERS ═══ -->
+        <div class="filters" id="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="artifact">Artifacts</button>
+            <button class="filter-btn" data-filter="canvas">Canvases</button>
+            <button class="filter-btn" data-filter="note">Notes</button>
+            <button class="filter-btn" data-filter="tool">Tools</button>
+        </div>
+
+        <!-- ═══ STATS ═══ -->
+        <div class="stats" id="stats"></div>
+
+        <!-- ═══ MAIN CONTENT ═══ -->
+        <main id="content"></main>
+
+        <!-- ═══ EMPTY STATE ═══ -->
+        <div class="empty-state" id="empty" style="display: none;">
+            <div class="empty-icon">&#9673;</div>
+            <div class="empty-text">No entries found</div>
+        </div>
+
+        <!-- ═══ FOOTER ═══ -->
+        <footer class="footer">
+            <div class="footer-decoration">&#9674; &#9674; &#9674;</div>
+            <div>R-Index v1.0</div>
+        </footer>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════════════════
+        // DATA - Edit this array to add/update your links
+        // ═══════════════════════════════════════════════════════════════════════════
+        const LINKS = [
+            // ─── ARTIFACTS ───
+            {
+                title: "Interactive Data Visualizer",
+                description: "A dynamic chart builder with real-time data binding",
+                url: "https://claude.site/artifacts/example-data-viz",
+                category: "artifact",
+                date: "2025-01-15"
+            },
+            {
+                title: "Markdown Editor with Preview",
+                description: "Split-pane markdown editor with live rendering",
+                url: "https://claude.site/artifacts/example-md-editor",
+                category: "artifact",
+                date: "2025-01-12"
+            },
+            {
+                title: "Color Palette Generator",
+                description: "Generate harmonious color schemes from a base color",
+                url: "https://claude.site/artifacts/example-colors",
+                category: "artifact",
+                date: "2025-01-08"
+            },
+            {
+                title: "Task Timer with Pomodoro",
+                description: "Focus timer with customizable work/break intervals",
+                url: "https://claude.site/artifacts/example-pomodoro",
+                category: "artifact",
+                date: "2024-12-28"
+            },
+
+            // ─── CANVASES ───
+            {
+                title: "Project Architecture Overview",
+                description: "System design canvas for the main application",
+                url: "https://claude.ai/canvas/example-architecture",
+                category: "canvas",
+                date: "2025-01-20"
+            },
+            {
+                title: "API Design Specification",
+                description: "RESTful API endpoints and data models",
+                url: "https://claude.ai/canvas/example-api-design",
+                category: "canvas",
+                date: "2025-01-18"
+            },
+            {
+                title: "Database Schema Planning",
+                description: "Entity relationships and table structures",
+                url: "https://claude.ai/canvas/example-db-schema",
+                category: "canvas",
+                date: "2025-01-10"
+            },
+
+            // ─── NOTES ───
+            {
+                title: "Git Workflow Cheatsheet",
+                description: "Common git commands and branching strategies",
+                url: "#notes/git-workflow",
+                category: "note",
+                date: "2025-01-22"
+            },
+            {
+                title: "TypeScript Patterns",
+                description: "Useful TypeScript patterns and type utilities",
+                url: "#notes/typescript-patterns",
+                category: "note",
+                date: "2025-01-19"
+            },
+            {
+                title: "CSS Grid Reference",
+                description: "Quick reference for CSS Grid layout properties",
+                url: "#notes/css-grid",
+                category: "note",
+                date: "2025-01-14"
+            },
+            {
+                title: "React Hooks Deep Dive",
+                description: "Understanding useEffect, useMemo, and custom hooks",
+                url: "#notes/react-hooks",
+                category: "note",
+                date: "2025-01-05"
+            },
+            {
+                title: "Regex Patterns Collection",
+                description: "Commonly used regular expressions with explanations",
+                url: "#notes/regex-patterns",
+                category: "note",
+                date: "2024-12-30"
+            },
+
+            // ─── TOOLS ───
+            {
+                title: "Subtitle Cleaner",
+                description: "Convert .SRT files to clean Word documents",
+                url: "https://verneranton.github.io/subtitle2docx/",
+                category: "tool",
+                date: "2025-01-25"
+            },
+            {
+                title: "List to Slides",
+                description: "Transform lists into PowerPoint presentations",
+                url: "https://verneranton.github.io/LL2PP/",
+                category: "tool",
+                date: "2025-01-20"
+            }
+        ];
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // APP STATE
+        // ═══════════════════════════════════════════════════════════════════════════
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // THEME MANAGEMENT
+        // ═══════════════════════════════════════════════════════════════════════════
+        const body = document.body;
+        const themeBtn = document.getElementById('theme-btn');
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+        function applyTheme(theme) {
+            body.classList.remove('dark-mode', 'light-mode', 'loading');
+            body.classList.add(theme + '-mode');
+            themeBtn.textContent = theme === 'dark' ? '&#9788;' : '&#9790;';
+            themeBtn.innerHTML = theme === 'dark' ? '&#9788;' : '&#9790;';
+        }
+
+        function toggleTheme() {
+            const current = localStorage.getItem('rindex-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('rindex-theme', next);
+            applyTheme(next);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // RENDERING
+        // ═══════════════════════════════════════════════════════════════════════════
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function getCategoryLabel(category) {
+            const labels = {
+                artifact: 'Artifact',
+                canvas: 'Canvas',
+                note: 'Note',
+                tool: 'Tool'
+            };
+            return labels[category] || category;
+        }
+
+        function renderStats() {
+            const stats = document.getElementById('stats');
+            const counts = {
+                artifact: LINKS.filter(l => l.category === 'artifact').length,
+                canvas: LINKS.filter(l => l.category === 'canvas').length,
+                note: LINKS.filter(l => l.category === 'note').length,
+                tool: LINKS.filter(l => l.category === 'tool').length
+            };
+
+            stats.innerHTML = `
+                <div class="stat-item"><span class="stat-count">${counts.artifact}</span> Artifacts</div>
+                <div class="stat-item"><span class="stat-count">${counts.canvas}</span> Canvases</div>
+                <div class="stat-item"><span class="stat-count">${counts.note}</span> Notes</div>
+                <div class="stat-item"><span class="stat-count">${counts.tool}</span> Tools</div>
+            `;
+        }
+
+        function filterLinks() {
+            const query = searchQuery.toLowerCase();
+            return LINKS.filter(link => {
+                const matchesFilter = currentFilter === 'all' || link.category === currentFilter;
+                const matchesSearch = !query ||
+                    link.title.toLowerCase().includes(query) ||
+                    link.description.toLowerCase().includes(query) ||
+                    link.category.toLowerCase().includes(query);
+                return matchesFilter && matchesSearch;
+            });
+        }
+
+        function groupByCategory(links) {
+            const groups = {};
+            const order = ['artifact', 'canvas', 'note', 'tool'];
+
+            order.forEach(cat => {
+                const items = links.filter(l => l.category === cat);
+                if (items.length > 0) {
+                    groups[cat] = items.sort((a, b) => new Date(b.date) - new Date(a.date));
+                }
+            });
+
+            return groups;
+        }
+
+        function renderCard(link) {
+            return `
+                <a href="${link.url}" class="link-card" target="_blank" rel="noopener">
+                    <div class="card-header">
+                        <div class="card-title">${link.title}</div>
+                        <div class="card-category">${getCategoryLabel(link.category)}</div>
+                    </div>
+                    <div class="card-desc">${link.description}</div>
+                    <div class="card-date">${formatDate(link.date)}</div>
+                </a>
+            `;
+        }
+
+        function getSectionIcon(category) {
+            const icons = {
+                artifact: '&#9671;',
+                canvas: '&#9633;',
+                note: '&#9998;',
+                tool: '&#9881;'
+            };
+            return icons[category] || '&#9679;';
+        }
+
+        function getSectionTitle(category) {
+            const titles = {
+                artifact: 'Artifacts',
+                canvas: 'Canvases',
+                note: 'Notes',
+                tool: 'Tools'
+            };
+            return titles[category] || category;
+        }
+
+        function render() {
+            const content = document.getElementById('content');
+            const empty = document.getElementById('empty');
+            const filtered = filterLinks();
+
+            if (filtered.length === 0) {
+                content.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            const groups = groupByCategory(filtered);
+
+            let html = '';
+            for (const [category, links] of Object.entries(groups)) {
+                html += `
+                    <section class="section" data-category="${category}">
+                        <div class="section-header">
+                            <span class="section-line"></span>
+                            <span class="section-icon">${getSectionIcon(category)}</span>
+                            <span class="section-title">${getSectionTitle(category)}</span>
+                            <span class="section-line"></span>
+                        </div>
+                        <div class="links-grid">
+                            ${links.map(renderCard).join('')}
+                        </div>
+                    </section>
+                `;
+            }
+
+            content.innerHTML = html;
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // EVENT HANDLERS
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        // Filter buttons
+        document.getElementById('filters').addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.dataset.filter;
+                render();
+            }
+        });
+
+        // Search
+        const searchInput = document.getElementById('search');
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            render();
+        });
+
+        // ESC to clear search
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                searchQuery = '';
+                render();
+            }
+            // Focus search with /
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // INITIALIZATION
+        // ═══════════════════════════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('rindex-theme') || 'dark';
+            applyTheme(savedTheme);
+            renderStats();
+            render();
+        });
+
+        // Apply immediately to reduce flash
+        const immediateTheme = localStorage.getItem('rindex-theme') || 'dark';
+        body.classList.add(immediateTheme + '-mode');
+    </script>
+</body>
+</html>
