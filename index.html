@@ -7,7 +7,7 @@
     <style>
         /* ═══════════════════════════════════════════════════════════
            R-INDEX: The Routine Archive
-           Two styles: MYSTICAL (elegant) and BRUTALIST (template)
+           Two styles: MYSTICAL (elegant) and BRUTALIST (raw/geometric)
            ═══════════════════════════════════════════════════════════ */
 
         :root {
@@ -65,22 +65,6 @@
             color: #e0e0e0;
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           GRIMOIRE STYLE (arcane library aesthetic)
-           ═══════════════════════════════════════════════════════════ */
-
-        /* Light Mode - Grimoire (aged parchment) */
-        body.grimoire.light-mode {
-            background: linear-gradient(180deg, #f5f0e1 0%, #e8dcc8 50%, #ddd0b8 100%);
-            color: #3d2314;
-        }
-
-        /* Dark Mode - Grimoire (deep arcane) */
-        body.grimoire.dark-mode {
-            background: linear-gradient(180deg, #12101a 0%, #1a1525 50%, #0f0d14 100%);
-            color: #c9a227;
-        }
-
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -114,8 +98,6 @@
         .mystical.dark-mode .style-switcher { border-color: #d4c4a822; background: #d4c4a805; }
         .brutalist.light-mode .style-switcher { border-color: #2a2a2a; background: #fefdfb; box-shadow: 3px 3px 0 #2a2a2a; }
         .brutalist.dark-mode .style-switcher { border-color: #e0e0e0; background: #2a2a2a; box-shadow: 3px 3px 0 #e0e0e0; }
-        .grimoire.light-mode .style-switcher { border-color: #3d231444; background: #3d231408; border-width: 1px; border-style: double; }
-        .grimoire.dark-mode .style-switcher { border-color: #c9a22733; background: #c9a22708; border-width: 1px; border-style: double; }
 
         .style-switcher-label {
             font-size: 0.625rem;
@@ -149,11 +131,6 @@
         .brutalist.dark-mode .style-btn { border-color: #e0e0e0; color: #e0e0e0; }
         .brutalist.dark-mode .style-btn:hover { transform: translate(-1px, -1px); box-shadow: 2px 2px 0 #e0e0e0; }
         .brutalist.dark-mode .style-btn.active { background: #e0e0e0; color: #1a1a1a; box-shadow: 2px 2px 0 #e0e0e0; }
-
-        .grimoire.light-mode .style-btn { border-color: #3d231455; color: #3d2314; }
-        .grimoire.light-mode .style-btn.active { background: #3d2314; color: #f5f0e1; }
-        .grimoire.dark-mode .style-btn { border-color: #c9a22744; color: #c9a227; }
-        .grimoire.dark-mode .style-btn.active { background: #c9a227; color: #12101a; }
 
         /* ═══════════════════════════════════════════════════════════
            HEADER
@@ -200,32 +177,6 @@
         .brutalist.dark-mode .header { border-color: #e0e0e0; }
         .brutalist .header::after { display: none; }
 
-        /* Grimoire header */
-        .grimoire .header {
-            border-bottom: 1px solid;
-        }
-        .grimoire.light-mode .header { border-color: #3d231433; }
-        .grimoire.dark-mode .header { border-color: #c9a22733; }
-
-        .grimoire .header::after {
-            content: '⸎ ☽ ⸎';
-            position: absolute;
-            bottom: -0.6rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.875rem;
-            letter-spacing: 0.75rem;
-            padding: 0 1rem;
-        }
-        .grimoire.light-mode .header::after {
-            background: linear-gradient(180deg, #f5f0e1, #e8dcc8);
-            color: #3d231466;
-        }
-        .grimoire.dark-mode .header::after {
-            background: linear-gradient(180deg, #12101a, #1a1525);
-            color: #c9a22788;
-        }
-
         .mode-toggle {
             position: absolute;
             top: 0;
@@ -257,8 +208,6 @@
         .mystical.dark-mode .mode-toggle button { border-color: #d4c4a844; color: #d4c4a8; }
         .brutalist.light-mode .mode-toggle button { border-color: #2a2a2a; color: #2a2a2a; }
         .brutalist.dark-mode .mode-toggle button { border-color: #e0e0e0; color: #e0e0e0; }
-        .grimoire.light-mode .mode-toggle button { border-color: #3d231444; color: #3d2314; }
-        .grimoire.dark-mode .mode-toggle button { border-color: #c9a22755; color: #c9a227; }
 
         .mode-toggle button:hover {
             transform: scale(1.05);
@@ -278,7 +227,6 @@
 
         .mystical .title-decoration { display: block; }
         .brutalist .title-decoration { display: none; }
-        .grimoire .title-decoration { display: block; content: '☽ ⋆ ☆ ⋆ ☾'; }
 
         .title {
             font-size: clamp(2rem, 6vw, 3rem);
@@ -293,9 +241,6 @@
         .brutalist .title::before { content: '════ '; }
         .brutalist .title::after { content: ' ════'; }
 
-        .grimoire .title { font-weight: normal; letter-spacing: 0.2em; }
-        .grimoire.dark-mode .title { text-shadow: 0 0 40px #c9a22733; }
-
         .subtitle {
             font-size: 0.75rem;
             letter-spacing: 0.2em;
@@ -307,9 +252,6 @@
         .brutalist .subtitle { font-style: normal; }
         .brutalist .subtitle::before { content: '[  '; }
         .brutalist .subtitle::after { content: '  ]'; }
-        .grimoire .subtitle { font-style: italic; opacity: 0.6; }
-        .grimoire .subtitle::before { content: '— '; }
-        .grimoire .subtitle::after { content: ' —'; }
 
         /* ═══════════════════════════════════════════════════════════
            SEARCH
@@ -348,15 +290,6 @@
         .brutalist.dark-mode .search-box { border-color: #e0e0e0; color: #e0e0e0; background: #2a2a2a; }
         .brutalist.dark-mode .search-box:focus { outline: none; box-shadow: 4px 4px 0 #e0e0e0; }
         .brutalist.dark-mode .search-box::placeholder { color: #e0e0e066; }
-
-        /* Grimoire search */
-        .grimoire .search-box { border: 1px solid; }
-        .grimoire.light-mode .search-box { border-color: #3d231433; color: #3d2314; }
-        .grimoire.light-mode .search-box:focus { border-color: #3d2314; outline: none; box-shadow: 0 0 15px #3d231411; }
-        .grimoire.light-mode .search-box::placeholder { color: #3d231466; }
-        .grimoire.dark-mode .search-box { border-color: #c9a22733; color: #c9a227; }
-        .grimoire.dark-mode .search-box:focus { border-color: #c9a227; outline: none; box-shadow: 0 0 25px #c9a22722; }
-        .grimoire.dark-mode .search-box::placeholder { color: #c9a22766; }
 
         .search-icon {
             position: absolute;
@@ -418,15 +351,6 @@
         .brutalist.dark-mode .filter-btn:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 #e0e0e0; }
         .brutalist.dark-mode .filter-btn.active { background: #e0e0e0; color: #1a1a1a; box-shadow: 4px 4px 0 #e0e0e0; }
 
-        /* Grimoire filters */
-        .grimoire .filter-btn { border: 1px solid; }
-        .grimoire.light-mode .filter-btn { border-color: #3d231444; color: #3d2314; }
-        .grimoire.light-mode .filter-btn:hover,
-        .grimoire.light-mode .filter-btn.active { background: #3d2314; color: #f5f0e1; border-color: #3d2314; }
-        .grimoire.dark-mode .filter-btn { border-color: #c9a22744; color: #c9a227; }
-        .grimoire.dark-mode .filter-btn:hover,
-        .grimoire.dark-mode .filter-btn.active { background: #c9a227; color: #12101a; border-color: #c9a227; }
-
         /* ═══════════════════════════════════════════════════════════
            SECTIONS
            ═══════════════════════════════════════════════════════════ */
@@ -455,8 +379,6 @@
         .mystical.dark-mode .section-line { background: #d4c4a833; }
         .brutalist.light-mode .section-line { background: #2a2a2a; height: 2px; }
         .brutalist.dark-mode .section-line { background: #e0e0e0; height: 2px; }
-        .grimoire.light-mode .section-line { background: #3d231433; }
-        .grimoire.dark-mode .section-line { background: #c9a22744; }
 
         .section-title {
             font-size: 0.75rem;
@@ -467,14 +389,12 @@
         }
 
         .brutalist .section-title { font-weight: bold; opacity: 1; }
-        .grimoire .section-title { font-style: italic; letter-spacing: 0.2em; }
 
         .section-icon {
             opacity: 0.6;
         }
 
         .brutalist .section-icon { opacity: 1; }
-        .grimoire .section-icon { opacity: 0.7; }
 
         /* ═══════════════════════════════════════════════════════════
            LINK CARDS
@@ -532,26 +452,6 @@
         .brutalist.dark-mode .link-card { border-color: #e0e0e0; color: #e0e0e0; background: #2a2a2a; box-shadow: 4px 4px 0 #e0e0e0; }
         .brutalist.dark-mode .link-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #e0e0e0; background: #333333; }
 
-        /* Grimoire cards */
-        .grimoire .link-card { border: 1px solid; background: transparent; }
-        .grimoire .link-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 2px;
-            height: 100%;
-            transition: all var(--transition-speed);
-        }
-        .grimoire.light-mode .link-card { border-color: #3d231433; color: #3d2314; }
-        .grimoire.light-mode .link-card::before { background: #3d231444; }
-        .grimoire.light-mode .link-card:hover { border-color: #3d231466; transform: translateY(-2px); box-shadow: 0 4px 12px #3d231411; }
-        .grimoire.light-mode .link-card:hover::before { background: #3d2314; }
-        .grimoire.dark-mode .link-card { border-color: #c9a22733; color: #c9a227; }
-        .grimoire.dark-mode .link-card::before { background: #c9a22744; }
-        .grimoire.dark-mode .link-card:hover { border-color: #c9a22766; transform: translateY(-2px); box-shadow: 0 4px 20px #c9a22722; }
-        .grimoire.dark-mode .link-card:hover::before { background: #c9a227; }
-
         .link-card.hidden {
             display: none;
         }
@@ -571,7 +471,6 @@
 
         .mystical .card-title { font-weight: normal; }
         .brutalist .card-title { font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; }
-        .grimoire .card-title { font-weight: normal; }
 
         .card-category {
             font-size: 0.625rem;
@@ -588,8 +487,6 @@
         .mystical.dark-mode .card-category { border-color: #d4c4a855; }
         .brutalist.light-mode .card-category { border-color: #2a2a2a; opacity: 0.7; }
         .brutalist.dark-mode .card-category { border-color: #e0e0e0; opacity: 0.7; }
-        .grimoire.light-mode .card-category { border-color: #3d231444; }
-        .grimoire.dark-mode .card-category { border-color: #c9a22755; }
 
         .card-desc {
             font-size: 0.75rem;
@@ -599,7 +496,6 @@
         }
 
         .brutalist .card-desc { opacity: 0.8; }
-        .grimoire .card-desc { font-style: italic; opacity: 0.65; }
 
         .card-date {
             font-size: 0.625rem;
@@ -650,8 +546,6 @@
         .brutalist .footer-decoration { display: none; }
         .brutalist .footer::before { content: '[ '; }
         .brutalist .footer::after { content: ' ]'; }
-        .grimoire .footer-decoration { content: '⸎ ⸎ ⸎'; }
-        .grimoire .footer { font-style: italic; }
 
         /* ═══════════════════════════════════════════════════════════
            STATS BAR
@@ -669,7 +563,6 @@
         }
 
         .brutalist .stats { opacity: 0.7; }
-        .grimoire .stats { opacity: 0.65; font-style: italic; }
 
         .stat-item {
             display: flex;
@@ -707,9 +600,6 @@
         .mystical.dark-mode::-webkit-scrollbar-thumb:hover { background: #d4c4a855; }
         .brutalist.dark-mode::-webkit-scrollbar-thumb { background: #e0e0e033; border-radius: 0; }
         .brutalist.dark-mode::-webkit-scrollbar-thumb:hover { background: #e0e0e055; }
-        .grimoire.dark-mode::-webkit-scrollbar-track { background: #12101a; }
-        .grimoire.dark-mode::-webkit-scrollbar-thumb { background: #c9a22733; border-radius: 2px; }
-        .grimoire.dark-mode::-webkit-scrollbar-thumb:hover { background: #c9a22755; }
     </style>
     <script>
         // Prevent flash - apply theme immediately based on preference
@@ -728,7 +618,6 @@
             <span class="style-switcher-label">Style:</span>
             <button class="style-btn active" data-style="mystical">Mystical</button>
             <button class="style-btn" data-style="brutalist">Brutalist</button>
-            <button class="style-btn" data-style="grimoire">Grimoire</button>
         </div>
 
         <!-- ═══ HEADER ═══ -->
@@ -967,7 +856,7 @@
         // STYLE MANAGEMENT
         // ═══════════════════════════════════════════════════════════════════════════
         function applyStyle(style) {
-            body.classList.remove('mystical', 'brutalist', 'grimoire');
+            body.classList.remove('mystical', 'brutalist');
             body.classList.add(style);
             currentStyle = style;
 
