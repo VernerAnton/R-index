@@ -600,6 +600,408 @@
         .mystical.dark-mode::-webkit-scrollbar-thumb:hover { background: #d4c4a855; }
         .brutalist.dark-mode::-webkit-scrollbar-thumb { background: #e0e0e033; border-radius: 0; }
         .brutalist.dark-mode::-webkit-scrollbar-thumb:hover { background: #e0e0e055; }
+
+        /* ═══════════════════════════════════════════════════════════
+           BRUTALIST ENHANCEMENTS
+           Elevating the raw aesthetic with polish and options
+           ═══════════════════════════════════════════════════════════ */
+
+        /* ─── CSS CUSTOM PROPERTIES ─── */
+        .brutalist {
+            /* Accent Colors */
+            --brut-accent: #e63946;
+            --brut-accent-dark: #ff4d5a;
+            /* Shadow Sizes */
+            --brut-shadow-base: 4px;
+            --brut-shadow-hover: 7px;
+            --brut-shadow-active: 2px;
+            /* Typography */
+            --brut-title-weight: 900;
+            --brut-title-spacing: 0.08em;
+            /* Transitions */
+            --brut-transition: 0s;
+        }
+
+        /* ─── CATEGORY 1: TYPOGRAPHY - INDUSTRIAL HEAVY (Recommended) ─── */
+        .brutalist .title {
+            font-weight: var(--brut-title-weight);
+            letter-spacing: var(--brut-title-spacing);
+        }
+
+        .brutalist .card-title {
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            font-size: 0.875rem;
+        }
+
+        .brutalist .section-title {
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            font-size: 0.6875rem;
+        }
+
+        .brutalist .card-desc {
+            letter-spacing: 0.02em;
+            line-height: 1.6;
+        }
+
+        /* Typography Alternative A: Compressed */
+        .brutalist.typo-compressed .title {
+            letter-spacing: -0.02em;
+            font-weight: 800;
+        }
+        .brutalist.typo-compressed .card-title {
+            letter-spacing: 0em;
+        }
+
+        /* Typography Alternative B: Monospace Grid */
+        .brutalist.typo-mono .title {
+            letter-spacing: 0.35em;
+            font-weight: 700;
+        }
+        .brutalist.typo-mono .card-title,
+        .brutalist.typo-mono .section-title {
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.12em;
+        }
+
+        /* Typography Alternative C: Stencil */
+        .brutalist.typo-stencil .title {
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+            text-underline-offset: 8px;
+        }
+        .brutalist.typo-stencil .section-title {
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 4px;
+        }
+
+        /* ─── CATEGORY 2: GEOMETRIC ACCENTS - BLOCK GRID (Recommended) ─── */
+        .brutalist .title-decoration {
+            display: block !important;
+            opacity: 0.25;
+            font-size: 0.5rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.75rem;
+        }
+        .brutalist .title-decoration::before {
+            content: '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓';
+        }
+
+        .brutalist .title::before { content: '[ '; font-weight: 400; }
+        .brutalist .title::after { content: ' ]'; font-weight: 400; }
+
+        .brutalist .section-title::before {
+            content: '// ';
+            opacity: 0.5;
+        }
+
+        .brutalist .footer-decoration {
+            display: block !important;
+            opacity: 0.25;
+        }
+        .brutalist .footer-decoration::before {
+            content: '▌▌▌▌▌▌▌▌';
+            letter-spacing: 0.3em;
+        }
+
+        /* Geometric Alternative A: ASCII Lines */
+        .brutalist.geo-ascii .title-decoration::before {
+            content: '┌──────────────────────┐';
+        }
+        .brutalist.geo-ascii .section-title::before {
+            content: '├─ ';
+        }
+        .brutalist.geo-ascii .footer-decoration::before {
+            content: '└──────────────────────┘';
+        }
+
+        /* Geometric Alternative B: Hash Pattern */
+        .brutalist.geo-hash .title-decoration::before {
+            content: '### ### ### ### ###';
+        }
+        .brutalist.geo-hash .title::before { content: '//// '; }
+        .brutalist.geo-hash .title::after { content: ' ////'; }
+        .brutalist.geo-hash .section-title::before {
+            content: '# ';
+        }
+        .brutalist.geo-hash .footer-decoration::before {
+            content: '## ## ## ##';
+        }
+
+        /* Geometric Alternative C: Pipe System */
+        .brutalist.geo-pipe .title-decoration::before {
+            content: '▌▌▌▌▌▌▌▌▌▌▌▌▌▌▌▌▌▌▌▌';
+        }
+        .brutalist.geo-pipe .title::before { content: '▐▐ '; }
+        .brutalist.geo-pipe .title::after { content: ' ▌▌'; }
+        .brutalist.geo-pipe .section-title::before {
+            content: '▌ ';
+        }
+        .brutalist.geo-pipe .section-line {
+            background: repeating-linear-gradient(
+                90deg,
+                currentColor,
+                currentColor 4px,
+                transparent 4px,
+                transparent 8px
+            ) !important;
+            height: 4px !important;
+        }
+
+        /* ─── CATEGORY 3: MICRO-INTERACTIONS - SNAP RESPONSE (Recommended) ─── */
+        .brutalist .link-card,
+        .brutalist .filter-btn,
+        .brutalist .style-btn {
+            transition: none;
+        }
+
+        .brutalist .link-card:active,
+        .brutalist .filter-btn:active,
+        .brutalist .style-btn:active {
+            transform: translate(1px, 1px);
+        }
+
+        .brutalist .link-card:focus-visible,
+        .brutalist .filter-btn:focus-visible,
+        .brutalist .search-box:focus-visible {
+            outline: 3px solid currentColor;
+            outline-offset: 2px;
+        }
+
+        /* Interactions Alternative A: Stepped */
+        .brutalist.interact-stepped .link-card,
+        .brutalist.interact-stepped .filter-btn,
+        .brutalist.interact-stepped .style-btn {
+            transition: all 0.15s steps(3);
+        }
+
+        /* Interactions Alternative B: Smooth Industrial */
+        .brutalist.interact-smooth .link-card,
+        .brutalist.interact-smooth .filter-btn,
+        .brutalist.interact-smooth .style-btn {
+            transition: all 0.12s cubic-bezier(0.25, 0, 0.5, 1);
+        }
+
+        /* Interactions Alternative C: Flicker */
+        .brutalist.interact-flicker .link-card:hover,
+        .brutalist.interact-flicker .filter-btn:hover {
+            animation: brut-flicker 0.1s ease-in-out;
+        }
+        @keyframes brut-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* ─── CATEGORY 4: COLOR ACCENTS - SIGNAL RED (Recommended) ─── */
+        /* Active filter with accent */
+        .brutalist.light-mode .filter-btn.active {
+            background: var(--brut-accent) !important;
+            border-color: var(--brut-accent) !important;
+            color: #fefdfb !important;
+        }
+        .brutalist.dark-mode .filter-btn.active {
+            background: var(--brut-accent-dark) !important;
+            border-color: var(--brut-accent-dark) !important;
+            color: #1a1a1a !important;
+        }
+
+        /* Card hover accent bar */
+        .brutalist .link-card::before {
+            display: block !important;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: transparent;
+        }
+        .brutalist.light-mode .link-card:hover::before {
+            background: var(--brut-accent);
+        }
+        .brutalist.dark-mode .link-card:hover::before {
+            background: var(--brut-accent-dark);
+        }
+
+        /* Search focus accent */
+        .brutalist.light-mode .search-box:focus {
+            border-color: var(--brut-accent) !important;
+            box-shadow: 4px 4px 0 var(--brut-accent) !important;
+        }
+        .brutalist.dark-mode .search-box:focus {
+            border-color: var(--brut-accent-dark) !important;
+            box-shadow: 4px 4px 0 var(--brut-accent-dark) !important;
+        }
+
+        /* Accent Alternative A: Industrial Yellow */
+        .brutalist.accent-yellow {
+            --brut-accent: #ffc107;
+            --brut-accent-dark: #ffd54f;
+        }
+
+        /* Accent Alternative B: Terminal Green */
+        .brutalist.accent-green {
+            --brut-accent: #00c853;
+            --brut-accent-dark: #69f0ae;
+        }
+
+        /* Accent Alternative C: Monochrome (no color) */
+        .brutalist.accent-mono {
+            --brut-accent: #2a2a2a;
+            --brut-accent-dark: #e0e0e0;
+        }
+
+        /* ─── CATEGORY 5: STRUCTURAL ELEMENTS - CORNER BRACKETS (Recommended) ─── */
+        .brutalist .link-card::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 12px;
+            height: 12px;
+            border-style: solid;
+            border-color: currentColor;
+            border-width: 0 2px 2px 0;
+            opacity: 0.2;
+            transition: opacity 0s;
+        }
+        .brutalist .link-card:hover::after {
+            opacity: 0.6;
+        }
+
+        /* Numbered section labels */
+        .brutalist .section[data-category="artifact"] .section-title::before { content: '01 // '; }
+        .brutalist .section[data-category="canvas"] .section-title::before { content: '02 // '; }
+        .brutalist .section[data-category="note"] .section-title::before { content: '03 // '; }
+        .brutalist .section[data-category="tool"] .section-title::before { content: '04 // '; }
+
+        /* Structural Alternative A: Full Frame */
+        .brutalist.struct-frame .link-card {
+            outline: 1px solid;
+            outline-offset: 3px;
+        }
+        .brutalist.struct-frame.light-mode .link-card {
+            outline-color: #2a2a2a22;
+        }
+        .brutalist.struct-frame.dark-mode .link-card {
+            outline-color: #e0e0e022;
+        }
+        .brutalist.struct-frame .link-card:hover {
+            outline-color: currentColor;
+        }
+
+        /* Structural Alternative B: Index Numbers */
+        .brutalist.struct-indexed {
+            counter-reset: card-counter;
+        }
+        .brutalist.struct-indexed .link-card {
+            counter-increment: card-counter;
+        }
+        .brutalist.struct-indexed .link-card::after {
+            content: counter(card-counter, decimal-leading-zero);
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 0.5rem;
+            font-weight: 700;
+            opacity: 0.15;
+            letter-spacing: 0.05em;
+            border: none;
+            width: auto;
+            height: auto;
+        }
+        .brutalist.struct-indexed .link-card:hover::after {
+            opacity: 0.4;
+        }
+
+        /* Structural Alternative C: Divider Lines */
+        .brutalist.struct-divided .card-header {
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid;
+            margin-bottom: 0.5rem;
+        }
+        .brutalist.struct-divided.light-mode .card-header {
+            border-color: #2a2a2a33;
+        }
+        .brutalist.struct-divided.dark-mode .card-header {
+            border-color: #e0e0e033;
+        }
+        .brutalist.struct-divided .card-date {
+            padding-top: 0.5rem;
+            border-top: 1px dashed;
+        }
+        .brutalist.struct-divided.light-mode .card-date {
+            border-color: #2a2a2a22;
+        }
+        .brutalist.struct-divided.dark-mode .card-date {
+            border-color: #e0e0e022;
+        }
+
+        /* ─── CATEGORY 6: MOTION & FEEDBACK - MECHANICAL SNAP (Recommended) ─── */
+        .brutalist .link-card:hover {
+            transform: translate(-3px, -3px);
+        }
+        .brutalist.light-mode .link-card {
+            box-shadow: var(--brut-shadow-base) var(--brut-shadow-base) 0 #2a2a2a;
+        }
+        .brutalist.light-mode .link-card:hover {
+            box-shadow: var(--brut-shadow-hover) var(--brut-shadow-hover) 0 #2a2a2a;
+        }
+        .brutalist.light-mode .link-card:active {
+            box-shadow: var(--brut-shadow-active) var(--brut-shadow-active) 0 #2a2a2a;
+        }
+        .brutalist.dark-mode .link-card {
+            box-shadow: var(--brut-shadow-base) var(--brut-shadow-base) 0 #e0e0e0;
+        }
+        .brutalist.dark-mode .link-card:hover {
+            box-shadow: var(--brut-shadow-hover) var(--brut-shadow-hover) 0 #e0e0e0;
+        }
+        .brutalist.dark-mode .link-card:active {
+            box-shadow: var(--brut-shadow-active) var(--brut-shadow-active) 0 #e0e0e0;
+        }
+
+        /* Motion Alternative A: Elastic Bounce */
+        .brutalist.motion-elastic .link-card,
+        .brutalist.motion-elastic .filter-btn {
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+        }
+
+        /* Motion Alternative B: Slide Reveal */
+        .brutalist.motion-slide .link-card .card-date {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            margin: 0;
+            transition: all 0.15s ease-out;
+        }
+        .brutalist.motion-slide .link-card:hover .card-date {
+            max-height: 2rem;
+            opacity: 0.5;
+            margin-top: 0.75rem;
+        }
+
+        /* Motion Alternative C: Shadow Pulse */
+        .brutalist.motion-pulse .link-card:focus-visible,
+        .brutalist.motion-pulse .filter-btn:focus-visible {
+            animation: brut-shadow-pulse 0.6s ease-in-out infinite alternate;
+        }
+        @keyframes brut-shadow-pulse {
+            from { box-shadow: 4px 4px 0 currentColor; }
+            to { box-shadow: 6px 6px 0 currentColor; }
+        }
+
+        /* ─── OPTION CLASSES REFERENCE ───
+           Typography:   typo-compressed | typo-mono | typo-stencil
+           Geometric:    geo-ascii | geo-hash | geo-pipe
+           Interactions: interact-stepped | interact-smooth | interact-flicker
+           Accent:       accent-yellow | accent-green | accent-mono
+           Structural:   struct-frame | struct-indexed | struct-divided
+           Motion:       motion-elastic | motion-slide | motion-pulse
+           ─────────────────────────────── */
+
     </style>
     <script>
         // Prevent flash - apply theme immediately based on preference
